@@ -1,0 +1,58 @@
+####{BSB GENERATED: NO EDIT
+B lib/bs
+FLG -open LearnReasonmlWorkshop
+FLG -ppx '/Users/huyly/learn-reasonml-workshop/node_modules/bs-platform/darwin/bsc.exe -as-ppx '
+S /Users/huyly/learn-reasonml-workshop/node_modules/bs-platform/lib/ocaml
+B /Users/huyly/learn-reasonml-workshop/node_modules/bs-platform/lib/ocaml
+FLG -w +a-4-9-20-40-41-42-50-61-102
+S src/exercises/05-twice
+B lib/bs/src/exercises/05-twice
+S src/exercises/08-list_intro
+B lib/bs/src/exercises/08-list_intro
+S src/exercises/21-writing_list_operations
+B lib/bs/src/exercises/21-writing_list_operations
+S src/exercises/23-mutable_records
+B lib/bs/src/exercises/23-mutable_records
+S src/exercises/16-labelled_arguments
+B lib/bs/src/exercises/16-labelled_arguments
+S src/exercises/14-variants
+B lib/bs/src/exercises/14-variants
+S src/exercises/06-pattern-matching
+B lib/bs/src/exercises/06-pattern-matching
+S src/exercises/22-records
+B lib/bs/src/exercises/22-records
+S src/exercises/24-refs
+B lib/bs/src/exercises/24-refs
+S src/exercises/09-list_range
+B lib/bs/src/exercises/09-list_range
+S src/exercises/12-list_min
+B lib/bs/src/exercises/12-list_min
+S src/exercises/07-simple_recursion
+B lib/bs/src/exercises/07-simple_recursion
+S src/exercises/17-options
+B lib/bs/src/exercises/17-options
+S src/exercises/20-reading_sigs
+B lib/bs/src/exercises/20-reading_sigs
+S src/exercises/19-list_operations
+B lib/bs/src/exercises/19-list_operations
+S src/exercises/01-introduction
+B lib/bs/src/exercises/01-introduction
+S src/exercises/02-basic_types
+B lib/bs/src/exercises/02-basic_types
+S src/exercises/18-anonymous_functions
+B lib/bs/src/exercises/18-anonymous_functions
+S src/exercises/03-define_functions
+B lib/bs/src/exercises/03-define_functions
+S src/exercises/15-tuples
+B lib/bs/src/exercises/15-tuples
+S src/exercises/13-largest_smallest
+B lib/bs/src/exercises/13-largest_smallest
+S src/exercises/10-list_product
+B lib/bs/src/exercises/10-list_product
+S src/exercises/11-sum_product
+B lib/bs/src/exercises/11-sum_product
+S src/exercises/04-call_functions
+B lib/bs/src/exercises/04-call_functions
+S src/support
+B lib/bs/src/support
+####BSB GENERATED: NO EDIT}

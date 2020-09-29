@@ -1,0 +1,204 @@
+g_pkg_flg = -bs-package-name learn-reasonml-workshop -bs-ns LearnReasonmlWorkshop
+src_root_dir = /Users/huyly/learn-reasonml-workshop
+bsc = /Users/huyly/learn-reasonml-workshop/node_modules/bs-platform/darwin/bsc.exe
+bsdep = /Users/huyly/learn-reasonml-workshop/node_modules/bs-platform/darwin/bsb_helper.exe
+warnings =  -warn-error +101
+bsc_flags = 
+ppx_flags = 
+g_dpkg_incls = 
+g_ns = -bs-ns LearnReasonmlWorkshop
+bsb_dir_group = 0
+g_lib_incls = -I . -I src/support -I src/exercises/04-call_functions -I src/exercises/11-sum_product -I src/exercises/10-list_product -I src/exercises/13-largest_smallest -I src/exercises/15-tuples -I src/exercises/03-define_functions -I src/exercises/18-anonymous_functions -I src/exercises/02-basic_types -I src/exercises/01-introduction -I src/exercises/19-list_operations -I src/exercises/20-reading_sigs -I src/exercises/17-options -I src/exercises/07-simple_recursion -I src/exercises/12-list_min -I src/exercises/09-list_range -I src/exercises/24-refs -I src/exercises/22-records -I src/exercises/06-pattern-matching -I src/exercises/14-variants -I src/exercises/16-labelled_arguments -I src/exercises/23-mutable_records -I src/exercises/21-writing_list_operations -I src/exercises/08-list_intro -I src/exercises/05-twice
+rule build_ast_from_re
+  command = $bsc  $warnings -color always $bsc_flags -o $out -bs-syntax-only -bs-binary-ast $in
+  description = [34mBuilding[39m [2m${out}[22m
+build  src/exercises/05-twice/twice.reast : build_ast_from_re $src_root_dir/src/exercises/05-twice/twice.re
+rule build_deps
+  command = $bsdep -hash f45eeef0da384a3878807fe58ddf69da $g_ns -g $bsb_dir_group $in
+  restat = 1
+  description = [34mBuilding[39m [2m${out}[22m
+build  src/exercises/05-twice/twice.d : build_deps src/exercises/05-twice/twice.reast src/exercises/05-twice/twice.reiast
+build  src/exercises/05-twice/twice.reiast : build_ast_from_re $src_root_dir/src/exercises/05-twice/twice.rei
+rule ml_cmi
+  command = $bsc $g_pkg_flg -color always -bs-suffix $g_lib_incls $warnings $bsc_flags -o $out $in
+  dyndep = $in_e.d
+  restat = 1
+  description = [34mBuilding[39m [2m${out}[22m
+build  src/exercises/05-twice/twice-LearnReasonmlWorkshop.cmi : ml_cmi src/exercises/05-twice/twice.reiast ||  src/exercises/05-twice/twice.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src/exercises/05-twice
+rule ml_cmj_only
+  command = $bsc $g_pkg_flg -color always -bs-suffix -bs-read-cmi $g_lib_incls $warnings $bsc_flags -o $out $in
+  dyndep = $in_e.d
+  restat = 1
+  description = [34mBuilding[39m [2m${out}[22m
+build  src/exercises/05-twice/twice-LearnReasonmlWorkshop.cmj |  $src_root_dir/src/exercises/05-twice/twice.bs.js : ml_cmj_only src/exercises/05-twice/twice.reast |  src/exercises/05-twice/twice-LearnReasonmlWorkshop.cmi ||  src/exercises/05-twice/twice.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src/exercises/05-twice
+build  src/exercises/08-list_intro/listIntro.reast : build_ast_from_re $src_root_dir/src/exercises/08-list_intro/listIntro.re
+build  src/exercises/08-list_intro/listIntro.d : build_deps src/exercises/08-list_intro/listIntro.reast src/exercises/08-list_intro/listIntro.reiast
+build  src/exercises/08-list_intro/listIntro.reiast : build_ast_from_re $src_root_dir/src/exercises/08-list_intro/listIntro.rei
+build  src/exercises/08-list_intro/listIntro-LearnReasonmlWorkshop.cmi : ml_cmi src/exercises/08-list_intro/listIntro.reiast ||  src/exercises/08-list_intro/listIntro.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src/exercises/08-list_intro
+build  src/exercises/08-list_intro/listIntro-LearnReasonmlWorkshop.cmj |  $src_root_dir/src/exercises/08-list_intro/listIntro.bs.js : ml_cmj_only src/exercises/08-list_intro/listIntro.reast |  src/exercises/08-list_intro/listIntro-LearnReasonmlWorkshop.cmi ||  src/exercises/08-list_intro/listIntro.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src/exercises/08-list_intro
+build  src/exercises/21-writing_list_operations/writingListOperations.reast : build_ast_from_re $src_root_dir/src/exercises/21-writing_list_operations/writingListOperations.re
+build  src/exercises/21-writing_list_operations/writingListOperations.d : build_deps src/exercises/21-writing_list_operations/writingListOperations.reast
+rule ml_cmj_cmi
+  command = $bsc $g_pkg_flg -color always -bs-suffix $g_lib_incls $warnings $bsc_flags -o $out $in
+  dyndep = $in_e.d
+  restat = 1
+  description = [34mBuilding[39m [2m${out}[22m
+build  src/exercises/21-writing_list_operations/writingListOperations-LearnReasonmlWorkshop.cmj |  src/exercises/21-writing_list_operations/writingListOperations-LearnReasonmlWorkshop.cmi $src_root_dir/src/exercises/21-writing_list_operations/writingListOperations.bs.js : ml_cmj_cmi src/exercises/21-writing_list_operations/writingListOperations.reast ||  src/exercises/21-writing_list_operations/writingListOperations.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src/exercises/21-writing_list_operations
+build  src/exercises/23-mutable_records/mutableRecords.reast : build_ast_from_re $src_root_dir/src/exercises/23-mutable_records/mutableRecords.re
+build  src/exercises/23-mutable_records/mutableRecords.d : build_deps src/exercises/23-mutable_records/mutableRecords.reast src/exercises/23-mutable_records/mutableRecords.reiast
+build  src/exercises/23-mutable_records/mutableRecords.reiast : build_ast_from_re $src_root_dir/src/exercises/23-mutable_records/mutableRecords.rei
+build  src/exercises/23-mutable_records/mutableRecords-LearnReasonmlWorkshop.cmi : ml_cmi src/exercises/23-mutable_records/mutableRecords.reiast ||  src/exercises/23-mutable_records/mutableRecords.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src/exercises/23-mutable_records
+build  src/exercises/23-mutable_records/mutableRecords-LearnReasonmlWorkshop.cmj |  $src_root_dir/src/exercises/23-mutable_records/mutableRecords.bs.js : ml_cmj_only src/exercises/23-mutable_records/mutableRecords.reast |  src/exercises/23-mutable_records/mutableRecords-LearnReasonmlWorkshop.cmi ||  src/exercises/23-mutable_records/mutableRecords.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src/exercises/23-mutable_records
+build  src/exercises/16-labelled_arguments/labelledArguments.reast : build_ast_from_re $src_root_dir/src/exercises/16-labelled_arguments/labelledArguments.re
+build  src/exercises/16-labelled_arguments/labelledArguments.d : build_deps src/exercises/16-labelled_arguments/labelledArguments.reast src/exercises/16-labelled_arguments/labelledArguments.reiast
+build  src/exercises/16-labelled_arguments/labelledArguments.reiast : build_ast_from_re $src_root_dir/src/exercises/16-labelled_arguments/labelledArguments.rei
+build  src/exercises/16-labelled_arguments/labelledArguments-LearnReasonmlWorkshop.cmi : ml_cmi src/exercises/16-labelled_arguments/labelledArguments.reiast ||  src/exercises/16-labelled_arguments/labelledArguments.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src/exercises/16-labelled_arguments
+build  src/exercises/16-labelled_arguments/labelledArguments-LearnReasonmlWorkshop.cmj |  $src_root_dir/src/exercises/16-labelled_arguments/labelledArguments.bs.js : ml_cmj_only src/exercises/16-labelled_arguments/labelledArguments.reast |  src/exercises/16-labelled_arguments/labelledArguments-LearnReasonmlWorkshop.cmi ||  src/exercises/16-labelled_arguments/labelledArguments.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src/exercises/16-labelled_arguments
+build  src/exercises/14-variants/variants.reast : build_ast_from_re $src_root_dir/src/exercises/14-variants/variants.re
+build  src/exercises/14-variants/variants.d : build_deps src/exercises/14-variants/variants.reast src/exercises/14-variants/variants.reiast
+build  src/exercises/14-variants/variants.reiast : build_ast_from_re $src_root_dir/src/exercises/14-variants/variants.rei
+build  src/exercises/14-variants/variants-LearnReasonmlWorkshop.cmi : ml_cmi src/exercises/14-variants/variants.reiast ||  src/exercises/14-variants/variants.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src/exercises/14-variants
+build  src/exercises/14-variants/variants-LearnReasonmlWorkshop.cmj |  $src_root_dir/src/exercises/14-variants/variants.bs.js : ml_cmj_only src/exercises/14-variants/variants.reast |  src/exercises/14-variants/variants-LearnReasonmlWorkshop.cmi ||  src/exercises/14-variants/variants.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src/exercises/14-variants
+build  src/exercises/06-pattern-matching/patternMatching.reast : build_ast_from_re $src_root_dir/src/exercises/06-pattern-matching/patternMatching.re
+build  src/exercises/06-pattern-matching/patternMatching.d : build_deps src/exercises/06-pattern-matching/patternMatching.reast src/exercises/06-pattern-matching/patternMatching.reiast
+build  src/exercises/06-pattern-matching/patternMatching.reiast : build_ast_from_re $src_root_dir/src/exercises/06-pattern-matching/patternMatching.rei
+build  src/exercises/06-pattern-matching/patternMatching-LearnReasonmlWorkshop.cmi : ml_cmi src/exercises/06-pattern-matching/patternMatching.reiast ||  src/exercises/06-pattern-matching/patternMatching.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src/exercises/06-pattern-matching
+build  src/exercises/06-pattern-matching/patternMatching-LearnReasonmlWorkshop.cmj |  $src_root_dir/src/exercises/06-pattern-matching/patternMatching.bs.js : ml_cmj_only src/exercises/06-pattern-matching/patternMatching.reast |  src/exercises/06-pattern-matching/patternMatching-LearnReasonmlWorkshop.cmi ||  src/exercises/06-pattern-matching/patternMatching.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src/exercises/06-pattern-matching
+build  src/exercises/22-records/records.reast : build_ast_from_re $src_root_dir/src/exercises/22-records/records.re
+build  src/exercises/22-records/records.d : build_deps src/exercises/22-records/records.reast src/exercises/22-records/records.reiast
+build  src/exercises/22-records/records.reiast : build_ast_from_re $src_root_dir/src/exercises/22-records/records.rei
+build  src/exercises/22-records/records-LearnReasonmlWorkshop.cmi : ml_cmi src/exercises/22-records/records.reiast ||  src/exercises/22-records/records.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src/exercises/22-records
+build  src/exercises/22-records/records-LearnReasonmlWorkshop.cmj |  $src_root_dir/src/exercises/22-records/records.bs.js : ml_cmj_only src/exercises/22-records/records.reast |  src/exercises/22-records/records-LearnReasonmlWorkshop.cmi ||  src/exercises/22-records/records.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src/exercises/22-records
+build  src/exercises/24-refs/refs.reast : build_ast_from_re $src_root_dir/src/exercises/24-refs/refs.re
+build  src/exercises/24-refs/refs.d : build_deps src/exercises/24-refs/refs.reast src/exercises/24-refs/refs.reiast
+build  src/exercises/24-refs/refs.reiast : build_ast_from_re $src_root_dir/src/exercises/24-refs/refs.rei
+build  src/exercises/24-refs/refs-LearnReasonmlWorkshop.cmi : ml_cmi src/exercises/24-refs/refs.reiast ||  src/exercises/24-refs/refs.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src/exercises/24-refs
+build  src/exercises/24-refs/refs-LearnReasonmlWorkshop.cmj |  $src_root_dir/src/exercises/24-refs/refs.bs.js : ml_cmj_only src/exercises/24-refs/refs.reast |  src/exercises/24-refs/refs-LearnReasonmlWorkshop.cmi ||  src/exercises/24-refs/refs.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src/exercises/24-refs
+build  src/exercises/09-list_range/listRange.reast : build_ast_from_re $src_root_dir/src/exercises/09-list_range/listRange.re
+build  src/exercises/09-list_range/listRange.d : build_deps src/exercises/09-list_range/listRange.reast src/exercises/09-list_range/listRange.reiast
+build  src/exercises/09-list_range/listRange.reiast : build_ast_from_re $src_root_dir/src/exercises/09-list_range/listRange.rei
+build  src/exercises/09-list_range/listRange-LearnReasonmlWorkshop.cmi : ml_cmi src/exercises/09-list_range/listRange.reiast ||  src/exercises/09-list_range/listRange.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src/exercises/09-list_range
+build  src/exercises/09-list_range/listRange-LearnReasonmlWorkshop.cmj |  $src_root_dir/src/exercises/09-list_range/listRange.bs.js : ml_cmj_only src/exercises/09-list_range/listRange.reast |  src/exercises/09-list_range/listRange-LearnReasonmlWorkshop.cmi ||  src/exercises/09-list_range/listRange.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src/exercises/09-list_range
+build  src/exercises/12-list_min/listMin.reast : build_ast_from_re $src_root_dir/src/exercises/12-list_min/listMin.re
+build  src/exercises/12-list_min/listMin.d : build_deps src/exercises/12-list_min/listMin.reast src/exercises/12-list_min/listMin.reiast
+build  src/exercises/12-list_min/listMin.reiast : build_ast_from_re $src_root_dir/src/exercises/12-list_min/listMin.rei
+build  src/exercises/12-list_min/listMin-LearnReasonmlWorkshop.cmi : ml_cmi src/exercises/12-list_min/listMin.reiast ||  src/exercises/12-list_min/listMin.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src/exercises/12-list_min
+build  src/exercises/12-list_min/listMin-LearnReasonmlWorkshop.cmj |  $src_root_dir/src/exercises/12-list_min/listMin.bs.js : ml_cmj_only src/exercises/12-list_min/listMin.reast |  src/exercises/12-list_min/listMin-LearnReasonmlWorkshop.cmi ||  src/exercises/12-list_min/listMin.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src/exercises/12-list_min
+build  src/exercises/07-simple_recursion/simpleRecursion.reast : build_ast_from_re $src_root_dir/src/exercises/07-simple_recursion/simpleRecursion.re
+build  src/exercises/07-simple_recursion/simpleRecursion.d : build_deps src/exercises/07-simple_recursion/simpleRecursion.reast src/exercises/07-simple_recursion/simpleRecursion.reiast
+build  src/exercises/07-simple_recursion/simpleRecursion.reiast : build_ast_from_re $src_root_dir/src/exercises/07-simple_recursion/simpleRecursion.rei
+build  src/exercises/07-simple_recursion/simpleRecursion-LearnReasonmlWorkshop.cmi : ml_cmi src/exercises/07-simple_recursion/simpleRecursion.reiast ||  src/exercises/07-simple_recursion/simpleRecursion.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src/exercises/07-simple_recursion
+build  src/exercises/07-simple_recursion/simpleRecursion-LearnReasonmlWorkshop.cmj |  $src_root_dir/src/exercises/07-simple_recursion/simpleRecursion.bs.js : ml_cmj_only src/exercises/07-simple_recursion/simpleRecursion.reast |  src/exercises/07-simple_recursion/simpleRecursion-LearnReasonmlWorkshop.cmi ||  src/exercises/07-simple_recursion/simpleRecursion.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src/exercises/07-simple_recursion
+build  src/exercises/17-options/options.reast : build_ast_from_re $src_root_dir/src/exercises/17-options/options.re
+build  src/exercises/17-options/options.d : build_deps src/exercises/17-options/options.reast src/exercises/17-options/options.reiast
+build  src/exercises/17-options/options.reiast : build_ast_from_re $src_root_dir/src/exercises/17-options/options.rei
+build  src/exercises/17-options/options-LearnReasonmlWorkshop.cmi : ml_cmi src/exercises/17-options/options.reiast ||  src/exercises/17-options/options.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src/exercises/17-options
+build  src/exercises/17-options/options-LearnReasonmlWorkshop.cmj |  $src_root_dir/src/exercises/17-options/options.bs.js : ml_cmj_only src/exercises/17-options/options.reast |  src/exercises/17-options/options-LearnReasonmlWorkshop.cmi ||  src/exercises/17-options/options.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src/exercises/17-options
+build  src/exercises/20-reading_sigs/readingSigs.reast : build_ast_from_re $src_root_dir/src/exercises/20-reading_sigs/readingSigs.re
+build  src/exercises/20-reading_sigs/readingSigs.d : build_deps src/exercises/20-reading_sigs/readingSigs.reast
+build  src/exercises/20-reading_sigs/readingSigs-LearnReasonmlWorkshop.cmj |  src/exercises/20-reading_sigs/readingSigs-LearnReasonmlWorkshop.cmi $src_root_dir/src/exercises/20-reading_sigs/readingSigs.bs.js : ml_cmj_cmi src/exercises/20-reading_sigs/readingSigs.reast ||  src/exercises/20-reading_sigs/readingSigs.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src/exercises/20-reading_sigs
+build  src/exercises/19-list_operations/listOperations.reast : build_ast_from_re $src_root_dir/src/exercises/19-list_operations/listOperations.re
+build  src/exercises/19-list_operations/listOperations.d : build_deps src/exercises/19-list_operations/listOperations.reast src/exercises/19-list_operations/listOperations.reiast
+build  src/exercises/19-list_operations/listOperations.reiast : build_ast_from_re $src_root_dir/src/exercises/19-list_operations/listOperations.rei
+build  src/exercises/19-list_operations/listOperations-LearnReasonmlWorkshop.cmi : ml_cmi src/exercises/19-list_operations/listOperations.reiast ||  src/exercises/19-list_operations/listOperations.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src/exercises/19-list_operations
+build  src/exercises/19-list_operations/listOperations-LearnReasonmlWorkshop.cmj |  $src_root_dir/src/exercises/19-list_operations/listOperations.bs.js : ml_cmj_only src/exercises/19-list_operations/listOperations.reast |  src/exercises/19-list_operations/listOperations-LearnReasonmlWorkshop.cmi ||  src/exercises/19-list_operations/listOperations.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src/exercises/19-list_operations
+build  src/exercises/01-introduction/introduction.reast : build_ast_from_re $src_root_dir/src/exercises/01-introduction/introduction.re
+build  src/exercises/01-introduction/introduction.d : build_deps src/exercises/01-introduction/introduction.reast
+build  src/exercises/01-introduction/introduction-LearnReasonmlWorkshop.cmj |  src/exercises/01-introduction/introduction-LearnReasonmlWorkshop.cmi $src_root_dir/src/exercises/01-introduction/introduction.bs.js : ml_cmj_cmi src/exercises/01-introduction/introduction.reast ||  src/exercises/01-introduction/introduction.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src/exercises/01-introduction
+build  src/exercises/02-basic_types/basicTypes.reast : build_ast_from_re $src_root_dir/src/exercises/02-basic_types/basicTypes.re
+build  src/exercises/02-basic_types/basicTypes.d : build_deps src/exercises/02-basic_types/basicTypes.reast src/exercises/02-basic_types/basicTypes.reiast
+build  src/exercises/02-basic_types/basicTypes.reiast : build_ast_from_re $src_root_dir/src/exercises/02-basic_types/basicTypes.rei
+build  src/exercises/02-basic_types/basicTypes-LearnReasonmlWorkshop.cmi : ml_cmi src/exercises/02-basic_types/basicTypes.reiast ||  src/exercises/02-basic_types/basicTypes.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src/exercises/02-basic_types
+build  src/exercises/02-basic_types/basicTypes-LearnReasonmlWorkshop.cmj |  $src_root_dir/src/exercises/02-basic_types/basicTypes.bs.js : ml_cmj_only src/exercises/02-basic_types/basicTypes.reast |  src/exercises/02-basic_types/basicTypes-LearnReasonmlWorkshop.cmi ||  src/exercises/02-basic_types/basicTypes.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src/exercises/02-basic_types
+build  src/exercises/18-anonymous_functions/anonymousFunctions.reast : build_ast_from_re $src_root_dir/src/exercises/18-anonymous_functions/anonymousFunctions.re
+build  src/exercises/18-anonymous_functions/anonymousFunctions.d : build_deps src/exercises/18-anonymous_functions/anonymousFunctions.reast src/exercises/18-anonymous_functions/anonymousFunctions.reiast
+build  src/exercises/18-anonymous_functions/anonymousFunctions.reiast : build_ast_from_re $src_root_dir/src/exercises/18-anonymous_functions/anonymousFunctions.rei
+build  src/exercises/18-anonymous_functions/anonymousFunctions-LearnReasonmlWorkshop.cmi : ml_cmi src/exercises/18-anonymous_functions/anonymousFunctions.reiast ||  src/exercises/18-anonymous_functions/anonymousFunctions.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src/exercises/18-anonymous_functions
+build  src/exercises/18-anonymous_functions/anonymousFunctions-LearnReasonmlWorkshop.cmj |  $src_root_dir/src/exercises/18-anonymous_functions/anonymousFunctions.bs.js : ml_cmj_only src/exercises/18-anonymous_functions/anonymousFunctions.reast |  src/exercises/18-anonymous_functions/anonymousFunctions-LearnReasonmlWorkshop.cmi ||  src/exercises/18-anonymous_functions/anonymousFunctions.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src/exercises/18-anonymous_functions
+build  src/exercises/03-define_functions/defineFunctions.reast : build_ast_from_re $src_root_dir/src/exercises/03-define_functions/defineFunctions.re
+build  src/exercises/03-define_functions/defineFunctions.d : build_deps src/exercises/03-define_functions/defineFunctions.reast src/exercises/03-define_functions/defineFunctions.reiast
+build  src/exercises/03-define_functions/defineFunctions.reiast : build_ast_from_re $src_root_dir/src/exercises/03-define_functions/defineFunctions.rei
+build  src/exercises/03-define_functions/defineFunctions-LearnReasonmlWorkshop.cmi : ml_cmi src/exercises/03-define_functions/defineFunctions.reiast ||  src/exercises/03-define_functions/defineFunctions.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src/exercises/03-define_functions
+build  src/exercises/03-define_functions/defineFunctions-LearnReasonmlWorkshop.cmj |  $src_root_dir/src/exercises/03-define_functions/defineFunctions.bs.js : ml_cmj_only src/exercises/03-define_functions/defineFunctions.reast |  src/exercises/03-define_functions/defineFunctions-LearnReasonmlWorkshop.cmi ||  src/exercises/03-define_functions/defineFunctions.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src/exercises/03-define_functions
+build  src/exercises/15-tuples/tuples.reast : build_ast_from_re $src_root_dir/src/exercises/15-tuples/tuples.re
+build  src/exercises/15-tuples/tuples.d : build_deps src/exercises/15-tuples/tuples.reast src/exercises/15-tuples/tuples.reiast
+build  src/exercises/15-tuples/tuples.reiast : build_ast_from_re $src_root_dir/src/exercises/15-tuples/tuples.rei
+build  src/exercises/15-tuples/tuples-LearnReasonmlWorkshop.cmi : ml_cmi src/exercises/15-tuples/tuples.reiast ||  src/exercises/15-tuples/tuples.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src/exercises/15-tuples
+build  src/exercises/15-tuples/tuples-LearnReasonmlWorkshop.cmj |  $src_root_dir/src/exercises/15-tuples/tuples.bs.js : ml_cmj_only src/exercises/15-tuples/tuples.reast |  src/exercises/15-tuples/tuples-LearnReasonmlWorkshop.cmi ||  src/exercises/15-tuples/tuples.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src/exercises/15-tuples
+build  src/exercises/13-largest_smallest/largestSmallest.reast : build_ast_from_re $src_root_dir/src/exercises/13-largest_smallest/largestSmallest.re
+build  src/exercises/13-largest_smallest/largestSmallest.d : build_deps src/exercises/13-largest_smallest/largestSmallest.reast src/exercises/13-largest_smallest/largestSmallest.reiast
+build  src/exercises/13-largest_smallest/largestSmallest.reiast : build_ast_from_re $src_root_dir/src/exercises/13-largest_smallest/largestSmallest.rei
+build  src/exercises/13-largest_smallest/largestSmallest-LearnReasonmlWorkshop.cmi : ml_cmi src/exercises/13-largest_smallest/largestSmallest.reiast ||  src/exercises/13-largest_smallest/largestSmallest.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src/exercises/13-largest_smallest
+build  src/exercises/13-largest_smallest/largestSmallest-LearnReasonmlWorkshop.cmj |  $src_root_dir/src/exercises/13-largest_smallest/largestSmallest.bs.js : ml_cmj_only src/exercises/13-largest_smallest/largestSmallest.reast |  src/exercises/13-largest_smallest/largestSmallest-LearnReasonmlWorkshop.cmi ||  src/exercises/13-largest_smallest/largestSmallest.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src/exercises/13-largest_smallest
+build  src/exercises/10-list_product/listProduct.reast : build_ast_from_re $src_root_dir/src/exercises/10-list_product/listProduct.re
+build  src/exercises/10-list_product/listProduct.d : build_deps src/exercises/10-list_product/listProduct.reast src/exercises/10-list_product/listProduct.reiast
+build  src/exercises/10-list_product/listProduct.reiast : build_ast_from_re $src_root_dir/src/exercises/10-list_product/listProduct.rei
+build  src/exercises/10-list_product/listProduct-LearnReasonmlWorkshop.cmi : ml_cmi src/exercises/10-list_product/listProduct.reiast ||  src/exercises/10-list_product/listProduct.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src/exercises/10-list_product
+build  src/exercises/10-list_product/listProduct-LearnReasonmlWorkshop.cmj |  $src_root_dir/src/exercises/10-list_product/listProduct.bs.js : ml_cmj_only src/exercises/10-list_product/listProduct.reast |  src/exercises/10-list_product/listProduct-LearnReasonmlWorkshop.cmi ||  src/exercises/10-list_product/listProduct.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src/exercises/10-list_product
+build  src/exercises/11-sum_product/sumProduct.reast : build_ast_from_re $src_root_dir/src/exercises/11-sum_product/sumProduct.re
+build  src/exercises/11-sum_product/sumProduct.d : build_deps src/exercises/11-sum_product/sumProduct.reast src/exercises/11-sum_product/sumProduct.reiast
+build  src/exercises/11-sum_product/sumProduct.reiast : build_ast_from_re $src_root_dir/src/exercises/11-sum_product/sumProduct.rei
+build  src/exercises/11-sum_product/sumProduct-LearnReasonmlWorkshop.cmi : ml_cmi src/exercises/11-sum_product/sumProduct.reiast ||  src/exercises/11-sum_product/sumProduct.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src/exercises/11-sum_product
+build  src/exercises/11-sum_product/sumProduct-LearnReasonmlWorkshop.cmj |  $src_root_dir/src/exercises/11-sum_product/sumProduct.bs.js : ml_cmj_only src/exercises/11-sum_product/sumProduct.reast |  src/exercises/11-sum_product/sumProduct-LearnReasonmlWorkshop.cmi ||  src/exercises/11-sum_product/sumProduct.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src/exercises/11-sum_product
+build  src/exercises/04-call_functions/callFunctions.reast : build_ast_from_re $src_root_dir/src/exercises/04-call_functions/callFunctions.re
+build  src/exercises/04-call_functions/callFunctions.d : build_deps src/exercises/04-call_functions/callFunctions.reast src/exercises/04-call_functions/callFunctions.reiast
+build  src/exercises/04-call_functions/callFunctions.reiast : build_ast_from_re $src_root_dir/src/exercises/04-call_functions/callFunctions.rei
+build  src/exercises/04-call_functions/callFunctions-LearnReasonmlWorkshop.cmi : ml_cmi src/exercises/04-call_functions/callFunctions.reiast ||  src/exercises/04-call_functions/callFunctions.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src/exercises/04-call_functions
+build  src/exercises/04-call_functions/callFunctions-LearnReasonmlWorkshop.cmj |  $src_root_dir/src/exercises/04-call_functions/callFunctions.bs.js : ml_cmj_only src/exercises/04-call_functions/callFunctions.reast |  src/exercises/04-call_functions/callFunctions-LearnReasonmlWorkshop.cmi ||  src/exercises/04-call_functions/callFunctions.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src/exercises/04-call_functions
+build  src/support/test.reast : build_ast_from_re $src_root_dir/src/support/test.re
+build  src/support/test.d : build_deps src/support/test.reast src/support/test.reiast
+build  src/support/test.reiast : build_ast_from_re $src_root_dir/src/support/test.rei
+build  src/support/test-LearnReasonmlWorkshop.cmi : ml_cmi src/support/test.reiast ||  src/support/test.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src/support
+build  src/support/test-LearnReasonmlWorkshop.cmj |  $src_root_dir/src/support/test.bs.js : ml_cmj_only src/support/test.reast |  src/support/test-LearnReasonmlWorkshop.cmi ||  src/support/test.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output commonjs:src/support
+rule build_package
+  command = $bsc -w -49 -color always -no-alias-deps  $in
+  restat = 1
+  description = [34mBuilding[39m [2m${out}[22m
+build  LearnReasonmlWorkshop.cmi : build_package LearnReasonmlWorkshop.mlmap

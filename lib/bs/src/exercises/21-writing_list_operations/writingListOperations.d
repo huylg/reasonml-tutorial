@@ -1,0 +1,1 @@
+src/exercises/21-writing_list_operations/writingListOperations-LearnReasonmlWorkshop.cmj : LearnReasonmlWorkshop.cmi src/support/test-LearnReasonmlWorkshop.cmj src/support/test-LearnReasonmlWorkshop.cmi
